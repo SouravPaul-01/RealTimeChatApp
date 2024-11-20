@@ -1,4 +1,7 @@
+import useGetMessages from "./hooks/useGetMessages";
+
 const Message = () => {
+  useGetMessages();
   return (
     <div>
       <div className="chat chat-start">

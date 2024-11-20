@@ -1,8 +1,20 @@
-const OtherUser = (props) => {
-  const user = props.user;
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedUser } from "../redux/userSlice";
+
+const OtherUser = ({ user }) => {
+  const dispatch = useDispatch();
+  const { selectedUser } = useSelector((store) => store.user);
+  const selectedUserHandler = (user) => {
+    dispatch(setSelectedUser(user));
+  };
   return (
     <div>
-      <div className="flex items-center gap-2  hover:text-zinc-100 hover:bg-zinc-500 cursor-pointer rounded-lg p-2">
+      <div
+        onClick={() => selectedUserHandler(user)}
+        className={`${
+          selectedUser?._id === user?._id ? "bg-zinc-500" : ""
+        } flex items-center gap-2 hover:text-zinc-100 hover:bg-zinc-500 cursor-pointer rounded-lg p-2`}
+      >
         <div className="avatar online">
           <div className="w-12 rounded-full">
             <img src={user?.profilePhoto} alt="" />

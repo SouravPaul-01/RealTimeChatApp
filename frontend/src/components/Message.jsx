@@ -1,7 +1,4 @@
-import useGetMessages from "./hooks/useGetMessages";
-
-const Message = () => {
-  useGetMessages();
+const Message = ({ message }) => {
   return (
     <div>
       <div className="chat chat-start">
@@ -27,7 +24,7 @@ const Message = () => {
             />
           </div>
         </div>
-        <div className="chat-bubble">Not leave it in Darkness</div>
+        <div className="chat-bubble">{message?.message}</div>
       </div>
       <div className="chat-header">
         <time className="text-xs opacity-50 text-gray-300">3:45 PM</time>

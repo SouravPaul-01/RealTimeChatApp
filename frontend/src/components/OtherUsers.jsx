@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import useGetOtherUsers from "./hooks/useGetOtherUsers";
+import useGetOtherUsers from "../hooks/useGetOtherUsers";
 import OtherUser from "./OtherUser";
 
 const OtherUsers = () => {

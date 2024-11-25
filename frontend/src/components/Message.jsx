@@ -1,33 +1,44 @@
-const Message = ({ message }) => {
-  return (
-    <div>
-      <div className="chat chat-start">
-        <div className="chat-image avatar">
-          <div className="w-10 rounded-full">
-            <img
-              alt="Tailwind CSS chat bubble component"
-              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-            />
-          </div>
-        </div>
-        <div className="chat-bubble">
-          It was you who would bring balance to the Force
-        </div>
-      </div>
+import { useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 
-      <div className="chat chat-end">
-        <div className="chat-image avatar">
-          <div className="w-10 rounded-full">
-            <img
-              alt="Tailwind CSS chat bubble component"
-              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-            />
-          </div>
+const Message = ({ message }) => {
+  const scroll = useRef();
+  const { authUser, selectedUser } = useSelector((store) => store.user);
+  console.log("authUser:", authUser);
+  console.log("selectedUser:", selectedUser);
+
+  useEffect(() => {
+    scroll.current?.scrollIntoView({ behavior: "smooth" });
+  }, [message]);
+
+  return (
+    <div
+      ref={scroll}
+      className={`chat ${
+        message?.senderId === authUser?.userId ? "chat-end" : "chat-start"
+      }`}
+    >
+      <div className="chat-image avatar">
+        <div className="w-10 rounded-full">
+          <img
+            alt="Tailwind CSS chat bubble component"
+            src={
+              message?.senderId === authUser?.userId
+                ? authUser?.profilePhoto
+                : selectedUser?.profilePhoto
+            }
+          />
         </div>
-        <div className="chat-bubble">{message?.message}</div>
       </div>
       <div className="chat-header">
-        <time className="text-xs opacity-50 text-gray-300">3:45 PM</time>
+        <time className="text-xs opacity-50 text-white">12:45</time>
+      </div>
+      <div
+        className={`chat-bubble ${
+          message?.senderId !== authUser?.userId ? "bg-gray-200 text-black" : ""
+        }`}
+      >
+        {message?.message}
       </div>
     </div>
   );
